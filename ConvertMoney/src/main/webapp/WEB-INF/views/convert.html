@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/convert" method="post">
+    <table>
+        <tr>
+            <td>Gate</td>
+            <td><input type="text" name="gate"></td>
+        </tr>
+        <tr>
+            <td>VND</td>
+            <td><input type="text" name="vnd" th:value="${vnd}"></td>
+        </tr>
+        <tr>
+            <td>USD</td>
+            <td><input type="text" name="usd" th:value="${usd}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="convert"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
