@@ -29,25 +29,25 @@
                     </div>
                 </div>
                 <!--        content-->
-                <div class="row">
+                <div class="container justify-center col-10">
                     <form th:object="${customer}" method="post">
                         <h2>ARE YOU SURE?</h2>
-                        <table class="table table-striped w-100">
+                        <table class="table table-striped">
                             <tr>
                                 <td>Name</td>
-                                <td th:text="${customer.getName()}"></td>
+                                <td th:text="${customer.getName()}" class="form-control"></td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td th:text="${customer.getEmail()}"></td>
+                                <td th:text="${customer.getEmail()}" class="form-control"></td>
                             </tr>
                             <tr>
                                 <td>Address</td>
-                                <td th:text="${customer.getAddress()}"></td>
+                                <td th:text="${customer.getAddress()}" class="form-control"></td>
                             </tr>
                             <tr>
                                 <td>Phone:</td>
-                                <td th:text="${customer.getPhone()}"></td>
+                                <td th:text="${customer.getPhone()}" class="form-control"></td>
                             </tr>
                             <tr>
                                 <td></td>

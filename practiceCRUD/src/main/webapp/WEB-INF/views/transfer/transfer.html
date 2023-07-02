@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+<div class="d-flex justify-content-between m-2 align-items-center h-25 bg-primary">
+    <div class="text-white m-2"><h1>Transfer</h1></div>
+    <div>
+        <a class="btn btn-outline-success text-white m-2" th:href="@{/customers}"><i class="fas fa-list"></i> List of
+            customer</a>
+    </div>
+</div>
+<div th:if="${success}">
+    <h2 style="color: blue;" th:text="${message}"></h2>
+</div>
+<div class="container justify-center col-10">
+    <form th:object="${sender}" method="post">
+        <table class="table table-striped">
+            <tr>
+                <td>ID Sender</td>
+                <td><span th:text="${sender.getId()}"></span></td>
+            </tr>
+            <tr>
+                <td>Name Sender</td>
+                <td><span th:text="${sender.getName()}"></span></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><span th:text="${sender.getEmail()}"></span></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><span th:text="${sender.getAddress()}"></span></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><span th:text="${sender.getPhone()}"></span></td>
+            </tr>
+            <tr>
+                <td>Balance(VND)</td>
+                <td><span th:text="${sender.getBalance()}"></span></td>
+            </tr>
+            <tr>
+                <td>ID Recipient</td>
+                <td>
+                    <select name="idRecipient" onchange="updateRecipientName(this)">
+                        <option th:each="item:${customers}" th:value="${item.getId()}" th:text="${item.getId()}"
+                                th:selected="${item.getId()==tempIDRecipient}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Name Recipient</td>
+                <td>
+                    <select id="recipientName">
+                        <option th:each="item:${customers}" th:text="${item.getName()}"
+                                th:selected="${item.getName()==tempNameRecipient}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Transfer amount</td>
+                <td th:object="${transfer}"><input type="text" name="transferAmount" class="form-control"
+                                                   th:field="*{transferAmount}" oninput="calculateTotal()"></td>
+            </tr>
+            <tr>
+                <td>Fees (%)</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Transaction amount (VND)</td>
+                <td th:object="${transfer}"><input type="text" id="transactionAmount" class="form-control"
+                                                   th:field="*{transactionAmount}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn-outline-primary">Transfer</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    function calculateTotal() {
+        var transferAmount = parseFloat(document.getElementsByName("transferAmount")[0].value);
+        var feesPercentage = 10;
+        var fees = (transferAmount * feesPercentage) / 100;
+        var transactionAmount = transferAmount + fees;
+        var formattedAmount = transactionAmount.toFixed(2);
+        document.getElementById("transactionAmount").value = formattedAmount;
+        document.getElementsByName("transactionAmount")[0].value = formattedAmount;
+    }
+
+    function updateRecipientName(selectElement) {
+        var selectedIndex = selectElement.selectedIndex;
+        var recipientNameElement = document.getElementById("recipientName");
+        recipientNameElement.selectedIndex = selectedIndex;
+    }
+</script>
+</body>
+</html>

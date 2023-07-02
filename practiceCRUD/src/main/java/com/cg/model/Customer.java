@@ -1,21 +1,43 @@
-package model;
+package com.cg.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
+import java.util.List;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "full_name", nullable = false)
     private String name;
+    @Column(nullable = false, unique = true)
     private String email;
     private String address;
     private String phone;
 
+    @Column(precision = 10, scale = 0, nullable = false)
+    private BigDecimal balance;
+
+    @OneToMany
+    private List<Deposit> deposits;
+
+    @OneToMany
+    private List<Withdraw> withdraws;
+
     public Customer() {
     }
 
-    public Customer(int id, String name, String email, String address, String phone) {
+    public Customer(int id, String name, String email, String address, String phone, BigDecimal balance) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
         this.phone = phone;
+        this.balance = balance;
     }
 
     public int getId() {
@@ -58,8 +80,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return getId()+" "+getName()+" "+getEmail()+" "+getAddress()+" "+getPhone();
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

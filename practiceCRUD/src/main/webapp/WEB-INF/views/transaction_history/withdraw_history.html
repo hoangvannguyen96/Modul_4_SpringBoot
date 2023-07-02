@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+<div class="d-flex justify-content-between align-items-center ml-3 mr-3 mt-3 mb-2 h-75 bg-success">
+    <div class="m-2">
+        <h1 class="text-white">Withdrawal history</h1>
+    </div>
+    <div class="m-2">
+        <a class="btn btn-outline-primary text-white m-2" th:href="@{/customers}"><i class="fas fa-list"></i> List of
+            customer</a>
+    </div>
+</div>
+<div class="content col-12">
+    <table class="table table-striped">
+        <tr class="text-center bg-primary font-weight-bold">
+            <td>ID withdraw</td>
+            <td>Full name</td>
+            <td>Withdraw day</td>
+            <td>Withdraw amount</td>
+        </tr>
+        <th:block th:each="item:${withdraws}">
+            <tr>
+                <td class="text-center" th:text="${item.getId()}"></td>
+                <td class="text-left" th:text="${item.getCustomer().getName()}"></td>
+                <td class="text-center" th:text="${item.getCreateAt()}"></td>
+                <td class="text-right" th:text="${item.getWithdraw()}"></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

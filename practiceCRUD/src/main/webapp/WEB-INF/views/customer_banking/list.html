@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="d-flex justify-content-between align-items-center ml-3 mr-3 mt-3 mb-2 h-75 bg-success">
+    <div class="m-2"><h1 class="text-white">List of customer</h1></div>
+    <div class="m-2">
+        <a class="btn btn-outline-primary text-white" th:href="@{/customers/create}"><i class="fas fa-user-plus"></i> New create customer</a>
+        <a class="btn btn-outline-primary text-white" th:href="@{/transactionHistory}"><i class="fas fa-history"></i> Transaction history</a>
+    </div>
+</div>
+<div th:if="${success}">
+    <h2 style="color: red;" th:text="${message}"></h2>
+</div>
+<div class="content col-12">
+    <table class="table table-striped">
+        <tr class="text-center bg-primary font-weight-bold">
+            <td>ID</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Address</td>
+            <td>Phone</td>
+            <td>Balance</td>
+            <td colspan="5">Action</td>
+        </tr>
+        <th:block th:each="item:${customers}">
+            <tr>
+                <td th:text="${item.getId()}"></td>
+                <td th:text="${item.getName()}"></td>
+                <td th:text="${item.getEmail()}"></td>
+                <td th:text="${item.getAddress()}"></td>
+                <td th:text="${item.getPhone()}"></td>
+                <td class="text-right" th:text="${item.getBalance()}"></td>
+                <td><a th:href="@{/customers/__${item.getId()}__}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+                <td><a th:href="@{/customers/delete/__${item.getId()}__}" class="btn btn-danger d-inline-block ml-0"><i class="fas fa-trash"></i></a></td>
+                <td><a th:href="@{/deposits/__${item.getId()}__}" class="btn btn-primary d-inline-block ml-0"><i class="fas fa-hand-holding-usd"></i></a></td>
+                <td><a th:href="@{/transfers/__${item.getId()}__}" class="btn btn-danger d-inline-block ml-0"><i class="fas fa-exchange-alt"></i></a></td>
+                <td><a th:href="@{/withdraws/__${item.getId()}__}" class="btn btn-success d-inline-block ml-0"><i class="fas fa-minus"></i></a></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>
